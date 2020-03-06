@@ -151,13 +151,19 @@ addEventListener("click", myListener);
 
 Enables describing classes and constructor functions. A class has two types:
 
+启用描述类和构造函数。一个类有两种类型：
+
 - The type of the static side
 - The type of the instance side
 
 The constructor sits in the static side, when a class implements an interface,
 only the instance side of the class is checked.
 
+当类实现接口时，构造函数位于静态端，
+仅检查类的实例。
+
 ```ts
+1
 interface ClockInterface {
   tick(): void;
 }
@@ -166,6 +172,7 @@ interface ClockConstructor {
 }
 
 // Using Class Expression
+// 使用 Class 表达式
 const ClockA: ClockConstructor = class Clock implements ClockInterface {
   constructor(h: number, m: number) {}
   tick() {}
@@ -173,12 +180,16 @@ const ClockA: ClockConstructor = class Clock implements ClockInterface {
 
 let clockClassExpression = new ClockA(18, 11);
 
+2
 // Using Class Declaration with a Constructor Function
+// 使用Class声明和一个构造函数
 class ClockB implements ClockInterface {
   constructor(h: number, m: number) {}
   tick() {}
 }
 
+// 工厂函数，传入一个构造函数
+// retur n一个实例
 function createClock(
   ctor: ClockConstructor,
   hour: number,
@@ -197,6 +208,8 @@ let clockClassDeclaration = createClock(ClockB, 12, 17);
 ## Type Literal Syntax
 
 Typically used in the signature of a higher-order function.
+
+通常用于高阶函数的签名
 
 ```ts
 type MyFunctionType = (name: string) => number;
@@ -244,6 +257,8 @@ printDog({
 </div>
 
 # Mapped Types - Getting Types from Data
+
+映射类型 从数据中获得类型
 
 ## `typeof` / `keyof` Examples
 
@@ -298,6 +313,8 @@ type CurrencySymbol = keyof typeof currencySymbols; // "GBP" | "USD" | "EUR"
 
 ## `keyof` with Generics and Interfaces Example
 
+带有泛型和接口示例的`keyof`
+
 ```ts
 interface HasPhoneNumber {
   name: string;
@@ -336,6 +353,8 @@ type AllCommValues = CommunicationMethods[keyof CommunicationMethods];
 
 # Immutability
 
+不变性
+
 ## `readonly` Properties
 
 Properties marked with `readonly` can only be assigned to during initialization
@@ -368,6 +387,8 @@ function moveX(p: Point, offset: number): Point {
 
 Gettable area property is implicitly read-only because there’s no setter:
 
+Gettable area属性是隐式只读的，因为没有设置器：
+
 ```ts
 class Circle {
   readonly radius: number;
@@ -387,6 +408,8 @@ class Circle {
 </div>
 
 ## `readonly` Array / Tuple
+
+只读 数组/元祖
 
 ```ts
 const array: readonly string[];
@@ -449,6 +472,8 @@ foo.contents.push(5); // ...works!
 
 # Strict Mode
 
+严格模式
+
 ```json
   strict: true /* Enable all strict type-checking options. */
 ```
@@ -465,12 +490,19 @@ is equivalent to enabling all of the strict mode family options:
   alwaysStrict: true /* Parse in strict mode and emit "use strict" for each source file */
 ```
 
+- 不隐含any
+- 严格的null 检查
+
 You can then turn off individual strict mode family checks as needed.
+
+然后，您可以根据需要关闭各个严格模式系列检查。
 
 ## Non-Nullable Types `--strictNullChecks`
 
 In strict null checking mode, `null` and `undefined` are no longer assignable to
 every type.
+
+在严格模式下，null 和 undefined 都不可以被复制给任何类型
 
 ```ts
 let name: string;
@@ -501,6 +533,7 @@ type User = {
   parameters we want to be optional. This is different from adding `| undefined`
   which requires the parameter to be explicitly passed as `undefined`
 
+- 在 JavaScript ，任何函数参数都是可选的，没有传入就是undefined
 <!-- end list -->
 
 <div style="page-break-after: always;">
@@ -508,10 +541,12 @@ type User = {
 </div>
 
 ```ts
+// 这要求将参数显式传递为“ undefined”
 function fn1(x: number | undefined): void {
   x;
 }
 
+// 这样是可以的
 function fn2(x?: number): void {
   x;
 }
@@ -523,6 +558,8 @@ fn2(undefined); // OK
 ```
 
 Type guard needed to check if Object is possibly `null`:
+
+需要使用类型保护来检查Object是否可能为null：
 
 ```ts
 function getLength(s: string | null) {
@@ -540,6 +577,7 @@ function getLength(s: string | null) {
 }
 
 // JS's truthiness semantics support type guards in conditional expressions
+// JS的真实性语义在条件表达式中支持类型保护
 function getLength(s: string | null) {
   return s ? s.length : 0;
 }
