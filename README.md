@@ -1,7 +1,7 @@
 <article class="markdown-body">
 
 - [**Modern Typescript with Examples Cheat Sheet**](#modern-typescript-with-examples-cheat-sheet)
-- [Typing Objects 类型](#typing-objects)
+- [Typing Objects 类型对象](#typing-objects)
   - [`Object` Versus `object`](#object-versus-object)
   - [Interface Signatures Overview 接口签名概述](#interface-signatures-overview)
     - [Index Signature 索引签名](#index-signature)
@@ -591,6 +591,7 @@ function doSomething(callback?: () => void) {
 ```
 
 ```ts
+// 先判断一下是否存在
 function doSomething(callback?: () => void) {
   if (typeof callback === "function") {
     callback();
@@ -603,6 +604,8 @@ function doSomething(callback?: () => void) {
 </div>
 
 ## Strict Bind Call Apply `--strictBindCallApply`
+
+严格 bind call apply
 
 > The `call()` method calls a function with a given `this` value and arguments
 > provided individually, while `apply()` accepts a single array of arguments.
@@ -626,6 +629,8 @@ const n2 = fn.call(undefined, false); // Argument of type 'false' is not assigna
 
 ## Strict Class Property Initialization `--strictPropertyInitialization`
 
+严格的类属性初始化
+
 Verify that each instance property declared in a class either:
 
 - Has an explicit initializer, or
@@ -638,6 +643,7 @@ Verify that each instance property declared in a class either:
 class User {
   // Type error: Property 'username' has no initializer
   // and is not definitely assigned in the constructor
+  // 没有初始化，只声明了类型
   username: string;
 }
 
@@ -680,6 +686,8 @@ const username =
 
 `unknown` is the type-safe counterpart of the `any` type: we have to do some
 form of checking before performing most operations on values of type `unknown`.
+
+unknows是类型安全的any，意味着我们必须做一些类型检查
 
 ### Reading `JSON` from `localStorage` using `unknown` Example
 
@@ -727,6 +735,9 @@ following two places:
 - As the return type of functions that never return
 - As the type of variables under type guards that are never true
 
+- 作为永不返回的函数的返回类型
+- 由于在类型保护下的变量的类型永远不会为真
+
 `never` can be used in control flow analysis:
 
 ```ts
@@ -743,8 +754,12 @@ function controlFlowAnalysisWithNever(value: string | number) {
 
 # Generics
 
+泛型
+
 Generics enable you to create reusable code components that work with a number
 of types instead of a single type.
+
+泛型使您可以创建可与多种类型一起使用的可重用代码组件类型而不是单个类型。
 
 ## With and Without Type Argument Inference
 
@@ -785,6 +800,8 @@ setPair(1, "y");
 ```
 
 ## Higher Order Function with `Parameters<T>` and `ReturnType<T>`
+
+高阶函数
 
 ```ts
 // Input a function `<T extends (...args: any[]) => any>`
