@@ -1,41 +1,41 @@
 <article class="markdown-body">
 
 - [**Modern Typescript with Examples Cheat Sheet**](#modern-typescript-with-examples-cheat-sheet)
-- [Typing Objects](#typing-objects)
+- [Typing Objects 类型](#typing-objects)
   - [`Object` Versus `object`](#object-versus-object)
-  - [Interface Signatures Overview](#interface-signatures-overview)
-    - [Index Signature](#index-signature)
-    - [Call Signature](#call-signature)
-    - [Construct Signature](#construct-signature)
-  - [Type Literal Syntax](#type-literal-syntax)
+  - [Interface Signatures Overview 接口签名概述](#interface-signatures-overview)
+    - [Index Signature 索引签名](#index-signature)
+    - [Call Signature 调用签名](#call-signature)
+    - [Construct Signature 构造函数签名](#construct-signature)
+  - [Type Literal Syntax 类型字面量语法](#type-literal-syntax)
   - [Excess Properties (⛔ Inconsistency)](#excess-properties-inconsistency)
-- [Mapped Types - Getting Types from Data](#mapped-types---getting-types-from-data)
+- [Mapped Types - Getting Types from Data 映射类型](#mapped-types---getting-types-from-data)
   - [`typeof` / `keyof` Examples](#typeof-keyof-examples)
   - [`keyof` with Generics and Interfaces Example](#keyof-with-generics-and-interfaces-example)
-- [Immutability](#immutability)
+- [Immutability 不变性](#immutability)
   - [`readonly` Properties](#readonly-properties)
   - [`readonly` Class Properties](#readonly-class-properties)
   - [`readonly` Array / Tuple](#readonly-array-tuple)
   - [`const` Assertions](#const-assertions)
-- [Strict Mode](#strict-mode)
+- [Strict Mode 严格模式](#strict-mode)
   - [Non-Nullable Types `--strictNullChecks`](#non-nullable-types---strictnullchecks)
   - [Strict Bind Call Apply `--strictBindCallApply`](#strict-bind-call-apply---strictbindcallapply)
   - [Strict Class Property Initialization `--strictPropertyInitialization`](#strict-class-property-initialization---strictpropertyinitialization)
-- [Types](#types)
+- [Types 类型 ](#types)
   - [`unknown`](#unknown)
     - [Reading `JSON` from `localStorage` using `unknown` Example](#reading-json-from-localstorage-using-unknown-example)
   - [`never`](#never)
-- [Generics](#generics)
+- [Generics 泛型](#generics)
   - [With and Without Type Argument Inference](#with-and-without-type-argument-inference)
   - [Using More Than One Type Argument](#using-more-than-one-type-argument)
   - [Higher Order Function with `Parameters<T>` and `ReturnType<T>`](#higher-order-function-with-parameterst-and-returntypet)
 - [Discriminated Unions](#discriminated-unions)
   - [Exhaustive Pattern Matching Using `never`](#exhaustive-pattern-matching-using-never)
-- [Optional Chaining](#optional-chaining)
+- [Optional Chaining 可选链接](#optional-chaining)
   - [`?.` returns `undefined` when hitting a `null` or `undefined`](#returns-undefined-when-hitting-a-null-or-undefined)
 - [Nullish Coalescing](#nullish-coalescing)
   - [`??` “fall Backs” to a Default Value When Dealing with `null` or `undefined`](#fall-backs-to-a-default-value-when-dealing-with-null-or-undefined)
-- [Assertion Functions](#assertion-functions)
+- [Assertion Functions 断言函数](#assertion-functions)
   - [A Standard JavaScript `Assert()` Doesn’t Work for Type Checking](#a-standard-javascript-assert-doesnt-work-for-type-checking)
   - [Using `if` and `typeof` Everywhere is Bloat](#using-if-and-typeof-everywhere-is-bloat)
   - [Assertion Function Style 1 - Check for a Condition](#assertion-function-style-1---check-for-a-condition)
@@ -65,6 +65,8 @@ fn("foo"); // OK
 
 `object` is the type of all non-primitive values.
 
+"对象"是所有非原始值的类型。
+
 ```ts
 function fn(x: object) {}
 fn("foo"); // Error: "foo" is a primitive
@@ -74,14 +76,14 @@ fn("foo"); // Error: "foo" is a primitive
 
 ```ts
 interface ExampleInterface {
-  myProperty: boolean; // Property signature
+  myProperty: boolean; // Property signature 属性签名
   myMethod(x: string): void; // Method signature, 'x' for documentation only
   [prop: string]: any; // Index signature
   (x: number): string; // Call signature
   new (x: string): ExampleInstance; // Construct signature
 
   readonly modifierOne: string; // readonly modifier
-  modifierTwo?: string; // optional modifier
+  modifierTwo?: string; // optional modifier 可选描述符
 }
 ```
 
@@ -96,6 +98,10 @@ Helps to describe Arrays or objects that are used as dictionaries.
 - If there are both an index signature and property and/or method signatures in
   an interface, then the type of the index property value must also be a
   supertype of the type of the property value and/or method
+
+帮助描述用作字典的数组或对象。
+
+- 如果同时存在 一个索引签名和属性和/或方法签名在一个接口，则索引属性值的类型也必须是属性值和/或方法的类型的超类型
 
 <!-- end list -->
 
@@ -116,10 +122,14 @@ interface I2 {
 }
 ```
 
-### Call Signature
+### Call Signature 
+
+调用签名
 
 Enables interfaces to describe functions, `this` is the optional calling context
 of the function in this example:
+
+使接口能够描述函数，`this`是可选的函数里的调用上下文：
 
 ```ts
 interface ClickListener {
